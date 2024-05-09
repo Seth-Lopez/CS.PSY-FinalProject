@@ -2600,6 +2600,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "PrimaryButtonAction",
+            "id": "a63d226b-8539-4e77-a552-284a229419d5",
+            "actions": [
+                {
+                    "name": "ThrowObject",
+                    "type": "Button",
+                    "id": "d29fdf7d-90b4-47f5-a71e-19374f57ab8d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "95d86b00-9a74-4984-a316-66d816058081",
+                    "path": "*/{PrimaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ThrowObject",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

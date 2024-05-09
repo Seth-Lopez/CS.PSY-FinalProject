@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -7,20 +6,18 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class DistanceGrabInteractor : XRBaseControllerInteractor
 {
     #region member variables
-
     List<XRBaseInteractable> m_ValidTargets = new List<XRBaseInteractable>();
     XRBaseInteractable m_CurrentNearestObject;
-
     //settings
     public float m_grabbingThreshold = .8f;
     public GameObject m_cursor;
     public Transform m_fwdVector;
-
     private List<XRBaseInteractable> m_grabbableItems;
     private SphereCollider m_coll;
-
+    public bool isGrabbing = false;
+    private monoScript mono;
+    private XRBaseInteractable pastSelectTarget;
     #endregion
-
     private new void Start()
     {
         //create a collider and make it a trigger
@@ -35,17 +32,42 @@ public class DistanceGrabInteractor : XRBaseControllerInteractor
 
         //get a list of all the objects we could grab and cache them
         m_grabbableItems = FindObjectsOfType<XRBaseInteractable>().ToList();
+        mono = FindObjectOfType<monoScript>();
     }
 
-    protected override List<XRBaseInteractable> ValidTargets { get { return m_ValidTargets; } }
+    [System.Obsolete]
+    private void Update()
+    {
+        // Check if the player is currently grabbing something
+        if(selectTarget != null)
+        {
+            pastSelectTarget = selectTarget;
+        }
+        isGrabbing = selectTarget != null;
+        if(mono != null)
+        {
+            if(mono.primed && selectTarget == null)
+            {
+                if(pastSelectTarget != null)
+                {
+                    mono.primed = false;
+                    mono.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * .25f, ForceMode.Impulse);
+                    mono.gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * 1f, ForceMode.Impulse);
+                    pastSelectTarget = null;
+                }
+            }
+        }
+        
+    }
 
+    protected List<XRBaseInteractable> ValidTargets { get { return m_ValidTargets; } }
+    
     public override void ProcessInteractor(XRInteractionUpdateOrder.UpdatePhase updatePhase)
     {
         base.ProcessInteractor(updatePhase);
-
         GetValidTargets(m_ValidTargets);
     }
-
+    [System.Obsolete]
     public override void GetValidTargets(List<XRBaseInteractable> validTargets)
     {
         validTargets.Clear();
@@ -84,9 +106,11 @@ public class DistanceGrabInteractor : XRBaseControllerInteractor
     }
 
     //tell the XRInteractionManager that we have an object that we can select for when the grab input is activated
+    [System.Obsolete]
     public override bool CanSelect(XRBaseInteractable interactable)
     {
         bool selectActivated = m_CurrentNearestObject == interactable || base.CanSelect(interactable);
         return selectActivated && (selectTarget == null || selectTarget == interactable);
     }
+
 }
