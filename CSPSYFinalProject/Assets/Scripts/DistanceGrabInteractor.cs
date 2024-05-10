@@ -17,6 +17,7 @@ public class DistanceGrabInteractor : XRBaseControllerInteractor
     public bool isGrabbing = false;
     private monoScript mono;
     private XRBaseInteractable pastSelectTarget;
+    private bool wasGrabbing = false;
     #endregion
     private new void Start()
     {
@@ -44,17 +45,28 @@ public class DistanceGrabInteractor : XRBaseControllerInteractor
             pastSelectTarget = selectTarget;
         }
         isGrabbing = selectTarget != null;
+        if(isGrabbing)
+        {
+            wasGrabbing = true;
+        }
         if(mono != null)
         {
             if(mono.primed && selectTarget == null)
             {
                 if(pastSelectTarget != null)
                 {
+                    wasGrabbing = false;
                     mono.primed = false;
                     mono.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * .25f, ForceMode.Impulse);
                     mono.gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * 1f, ForceMode.Impulse);
                     pastSelectTarget = null;
                 }
+            }
+            else if(selectTarget == null && wasGrabbing)
+            {
+                //add a little extra force to throw. 
+                wasGrabbing = false;
+                mono.gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * .75f, ForceMode.Impulse);
             }
         }
         
