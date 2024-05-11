@@ -2,7 +2,7 @@
 Team members: Seth Lopez, Jake Bottenberg, Lily Villegas, Austin Ah Mau
 
 How to use our app:
-Open the Google Drive and Run the APK file with your VR Headset connected. We tested using an Oculus Quest 2
+Open the Google Drive and Run the APK file with your VR Headset connected. We tested using an Oculus Quest 2 (Link - https://drive.google.com/drive/folders/1xXZlE66QwDNt8aeDwW4SwmrWAhpU_-TG?usp=drive_link)
 
 Use the side triggers on the VR controllers to grab objects and make a throwing motion, releasing the trigger at the correct time to throw the object. Walk around using the left joystick and use the right joystick to look around.
 
