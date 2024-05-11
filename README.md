@@ -2,8 +2,7 @@
 Team members: Seth Lopez, Jake Bottenberg, Lily Villegas, Austin Ah Mau
 
 How to use our app:
-Open the Google Drive
-Run the APK file with your VR Headset connected. We tested using an Oculus Quest 2
+Open the Google Drive and Run the APK file with your VR Headset connected. We tested using an Oculus Quest 2
 
 Known bugs/issues:
 Currently, we have a collision box set on the dad and the score should increment upon the ball overlapping the collision box.
